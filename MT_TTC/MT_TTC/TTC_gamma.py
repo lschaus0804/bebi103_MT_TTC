@@ -59,7 +59,7 @@ import scipy.stats as st
 import scipy.special as sp
 
 #Tools
-import tqdm.notebook as tqdm
+from tqdm import tqdm
 
 
 # calculates the log likelihood for alpha and beta in the gamma distribution
