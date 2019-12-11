@@ -165,13 +165,13 @@ def get_mle_confidence_gamma(times, confidence = 0.95, alpha_fixed = True):
         bs_reps = draw_bs_reps_mle_gamma(mle_gamma_fixed, times, size=5000, progress_bar=True)
 
         #Get confidence interval
-        conf_int = np.percentile(bs_reps, [lower_b, upper_b], axis=0)
+        conf_int = np.percentile(bs_reps, [lower_b * 100, upper_b * 100], axis=0)
     
     else:
         # drawing 5000 boostrap replicates for alpha and beta
         bs_reps = draw_bs_reps_mle_gamma(mle_gamma, times, size=5000, progress_bar=True)
 
         #Get confidence interval
-        conf_int = np.percentile(bs_reps, [lower_b, upper_b], axis=0)
+        conf_int = np.percentile(bs_reps, [lower_b * 100, upper_b * 100], axis=0)
         
     return conf_int

@@ -38,7 +38,7 @@ import scipy.special
 from scipy import stats
 import numpy as np
 import math
-
+import copy
 
 
 #Necessary for 
@@ -73,30 +73,25 @@ def mean_and_confidence(df, column = 'time to catastrophe (s)'):
 	return mean, mean_conf_int
 
 
-def TTC_p_value(df_1, df_2, mean_1, mean_2, absolute=True):
-    
-    if df_1 >= df_2:
-        size = len(df_1)
-    else:
-        size = len(df_2)
-    # Create empty array to add data into.
-    perm_reps = np.empty(size)
-    # Create 'size' permutations of the data and get the difference of means of the new split datasets.
-    for i in range(size):
-        all_data = copy.deepcopy(df.values)
-        np.random.shuffle(all_data)
-        x_data = all_data[:size]
-        y_data = all_data[size:]
-        if absolute == True:
-            perm_reps[i] = abs(np.mean(x_data) - np.mean(y_data))
-        else:
-            perm_reps[i] = np.mean(x_data) - np.mean(y_data)
-            
-    diff_mean = abs(mean_1 - mean_2)
-    #Calculate p-value
-    p_val = np.sum(perm_reps >= diff_mean) /len(perm_reps)
+def TTC_p_value(df, mean_1, mean_2, size = 1, absolute=True, col_label = 'time to catastrophe (s)'):
 
-    return p_val
+	perm_reps = np.empty(size)
+	# Create 'size' permutations of the data and get the difference of means of the new split datasets.
+	for i in range(size):
+		all_data = copy.deepcopy(df[col_label].values)
+		np.random.shuffle(all_data)
+		x_data = all_data[:size]
+		y_data = all_data[size:]
+		if absolute == True:
+			perm_reps[i] = abs(np.mean(x_data) - np.mean(y_data))
+		else:
+			perm_reps[i] = np.mean(x_data) - np.mean(y_data)
+			
+	diff_mean = abs(mean_1 - mean_2)
+	#Calculate p-value
+	p_val = np.sum(perm_reps >= diff_mean) /len(perm_reps)
+
+	return p_val
 	
 	
 def df_TTC(df_labeled, df_unlabeled):

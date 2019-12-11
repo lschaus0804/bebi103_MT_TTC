@@ -68,6 +68,9 @@ hv.extension('bokeh')
 from tqdm import tqdm
 import warnings
 
+#Initialize random number generator
+rg = np.random.default_rng()
+
 #Needed to draw plots for create_poisson_ecdf
 def ecdf_vals_viz(
     data,
@@ -158,7 +161,7 @@ def true_cdf_plot(beta_1, beta_2, n_points=150000):
     )
 
     #Generate plot of approximated ecdf (see function create_approx_ecdf() above)
-    approx_cdf = create_approx_ecdf(beta_1, beta_2, non_dim=False).opts(
+    approx_cdf = create_poisson_ecdf(beta_1, beta_2, non_dim=False).opts(
         color=bebi103.hv.default_categorical_cmap[0]
     )
 
