@@ -100,7 +100,7 @@ def log_like_gamma_fixed(b, t, a = 2):
     return np.sum(st.gamma.logpdf(t, alpha, scale=1 / b))
 
 # calculates the MLE when alpha is fixed
-def mle_gamma_fixed(t, guess):
+def mle_gamma_fixed(t, guess = 0.05):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
 
