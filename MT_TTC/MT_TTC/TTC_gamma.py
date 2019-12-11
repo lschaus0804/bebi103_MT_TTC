@@ -58,6 +58,9 @@ import scipy.optimize
 import scipy.stats as st
 import scipy.special as sp
 
+#Tools
+from tqdm import tqdm
+
 
 # calculates the log likelihood for alpha and beta in the gamma distribution
 def log_like_gamma(params, t):

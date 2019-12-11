@@ -45,6 +45,9 @@ import scipy.optimize
 import scipy.stats as st
 import scipy.special as sp
 
+#Tools 
+from tqdm import tqdm
+
 
 # calculates the log likelihood for beta_1 and beta_2 in the given distribution
 def log_like_ttc_distribution(params, t):
