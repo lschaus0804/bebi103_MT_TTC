@@ -64,6 +64,9 @@ from bokeh.layouts import row
 bokeh.io.output_notebook()
 hv.extension('bokeh')
 
+#tools
+from tqdm import tqdm
+
 #Needed to draw plots for create_poisson_ecdf
 def ecdf_vals_viz(
     data,
