@@ -103,6 +103,6 @@ def df_TTC(df_labeled, df_unlabeled):
 	means = np.array([round(labeled_mean[0],2), round(unlabeled_mean[0],2)])
 	lower_bounds = np.array([round(labeled_mean[1][0],2), round(unlabeled_mean[1][0],2)])
 	upper_bounds = np.array([round(labeled_mean[1][1],2), round(unlabeled_mean[1][1],2)])
-	df = pd.DataFrame({'GFP label': indexes, 'Mean': means, 'Lower bound': lower_bounds, 'Upper bound': upper_bounds})
+	df = pd.DataFrame({'GFP label': indexes, 'Mean (s)': means, 'Lower bound': lower_bounds, 'Upper bound': upper_bounds})
 	
 	return df

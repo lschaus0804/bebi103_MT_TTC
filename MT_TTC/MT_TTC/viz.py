@@ -72,6 +72,7 @@ import warnings
 rg = np.random.default_rng()
 
 #Needed to draw plots for create_poisson_ecdf
+	
 def ecdf_vals_viz(
     data,
     beta,
@@ -98,10 +99,10 @@ def ecdf_vals_viz(
         label=legend_label,
     )
 
-    return plot
+    return plot, ecdf_data
 
 
-def create_poisson_ecdf(beta_1, beta_2, n_points=150, non_dim=False):
+def create_poisson_ecdf(beta_1, beta_2, n_points=1500, non_dim=True):
 
     #Create empty list to append random draws into.
     time_to_catastrophe = []
@@ -118,7 +119,7 @@ def create_poisson_ecdf(beta_1, beta_2, n_points=150, non_dim=False):
         ecdf = ecdf_vals_viz(
             time_to_catastrophe,
             beta_1,
-            "Approximate CDF",
+            "Consecutive poisson CDF",
             "Time to Catastrophe (t\u03B2\N{SUBSCRIPT ONE})",
             non_dim=True,
         )
@@ -126,7 +127,7 @@ def create_poisson_ecdf(beta_1, beta_2, n_points=150, non_dim=False):
         ecdf = ecdf_vals_viz(
             time_to_catastrophe,
             beta_1,
-            "Approximate CDF",
+            "Consecutive poisson CDF",
             "Time to Catastrophe (t)",
             non_dim=False,
         )
@@ -136,7 +137,7 @@ def create_poisson_ecdf(beta_1, beta_2, n_points=150, non_dim=False):
 
 def true_cdf_plot(beta_1, beta_2, n_points=150000):
     #Generate num points
-    x_dimension = np.linspace(0, 250, num=n_points)
+    x_dimension = np.linspace(0, 1500, num=n_points)
     #Generate list of tuples with t and F(t) of the distribution
     cdf = [
         (
@@ -152,11 +153,11 @@ def true_cdf_plot(beta_1, beta_2, n_points=150000):
 
     #Plot the above cdf as a scatter plot using holoviews
     true_cdf = hv.Scatter(
-        cdf, "Time to catastrophe (t)", "CDF", label="Exact CDF"
+        cdf, "Time to catastrophe (t)", "CDF", label="TTC CDF"
     ).opts(
         width=400,
         padding=0.1,
-        xlim=(0, 250),
+        xlim=(0, 1500),
         color=bebi103.hv.default_categorical_cmap[1],
     )
 
@@ -222,7 +223,7 @@ def mle_path_plot(bs_reps, param_1 = 'α*', param_2 = 'b*', conf = 0.95):
 
 def mle_confidence_plot(bs_reps, param_1 = 'α*', param_2 = 'b*', conf = 0.95):
     # Package replicates in data frame for plotting, from BE/Bi103a lesson exercises
-    df_res = pd.DataFrame(data=bs_reps, columns=["α*", "b*"])
+    df_res = pd.DataFrame(data=bs_reps, columns=[param_1, param_2])
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -231,3 +232,5 @@ def mle_confidence_plot(bs_reps, param_1 = 'α*', param_2 = 'b*', conf = 0.95):
         )
 
     return bokeh.io.show(p)
+
+	
