@@ -171,7 +171,7 @@ def true_cdf_plot(beta_1, beta_2, n_points=150000):
         legend_offset=(10, 20), legend_position="bottom_right"
     )
 
-def ecdf_vals_plot(df, label = 'labeled', column_label = 'time to catastrophe (s)', title = 'Labeled vs unlabeled microtubules', conf_int = True, label_bool = True):
+def ecdf_vals_plot(df, label = 'labeled', legend_title = "Labeled", column_label = 'time to catastrophe (s)', title = 'Labeled vs unlabeled microtubules', conf_int = True, label_bool = True):
     if label_bool:
         p = bokeh_catplot.ecdf(
             data=df,
@@ -185,7 +185,7 @@ def ecdf_vals_plot(df, label = 'labeled', column_label = 'time to catastrophe (s
         )
 
         p.legend.location = 'bottom_right'
-        p.legend.title = 'Labeled'
+        p.legend.title = legend_title
 
         return bokeh.io.show(p)
     
